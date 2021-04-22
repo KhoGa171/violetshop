@@ -4,7 +4,8 @@
 
 @section('main-content')
 <div class="card">
-<h5 class="card-header">Order       <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
+<h5 class="card-header">Order
+<!-- <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a> -->
   </h5>
   <div class="card-body">
     @if($order)
@@ -29,7 +30,7 @@
         <tr>
             <td>{{$order->id}}</td>
             <td>{{$order->order_number}}</td>
-            <td>{{$order->first_name}} {{$order->last_name}}</td>
+            <td>{{$order->name}}</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
             <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
@@ -58,7 +59,7 @@
       </tbody>
     </table>
 
-    <section class="confirmation_part section_padding">
+    <!-- <section class="confirmation_part section_padding">
       <div class="order_boxes">
         <div class="row">
           <div class="col-lg-6 col-lx-4">
@@ -141,7 +142,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     @endif
 
   </div>

@@ -189,11 +189,12 @@
                                                 </a>
                                                 <div class="button-head">
                                                     <div class="product-action">
-                                                        <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                        <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" class="wishlist" data-id="{{$product->id}}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                        <!-- <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class="ti-eye"></i><span>Quick Shop</span></a> -->
+                                                        <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" ><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                                     </div>
                                                     <div class="product-action-2">
-                                                        <a title="Add to cart" href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
+                                                        <!-- <a href="{{route('add-to-cart',$product->slug)}}">Add to cart</a> -->
+                                                        <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#">Add to cart</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -307,26 +308,25 @@
                                             <div class="quickview-peragraph">
                                                 <p>{!! html_entity_decode($product->summary) !!}</p>
                                             </div>
-                                            @if($product->size)
-                                                <div class="size">
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-12">
-                                                            <h5 class="title">Size</h5>
-                                                            <select>
-                                                                @php 
-                                                                $sizes=explode(',',$product->size);
-                                                                // dd($sizes);
-                                                                @endphp
-                                                                @foreach($sizes as $size)
-                                                                    <option class="text-uppercase">{{$size}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endif
                                             <form action="{{route('single-add-to-cart')}}" method="POST">
                                                 @csrf 
+                                                @if($product->size)
+													<div class="size">
+														<div class="row">
+															<div class="col-lg-6 col-12">
+																<h5 class="title">Size</h5>
+																<select class="selectpicker" data-live-search="true" name="size"  data-style="select-with-transition">
+																	@php 
+																	$sizes=explode(',',$product->size);
+																	@endphp
+																	@foreach($sizes as $size)
+																		<option>{{$size}}</option>
+																	@endforeach
+																</select>
+															</div>
+														</div>
+													</div>
+												@endif
                                                 <div class="quantity">
                                                     <!-- Input Order -->
                                                     <div class="input-group">

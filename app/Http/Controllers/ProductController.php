@@ -59,7 +59,7 @@ class ProductController extends Controller
             'status'=>'required|in:active,inactive',
             'condition'=>'required|in:default,new,hot',
             'price'=>'required|numeric',
-            'discount'=>'nullable|numeric'
+            'discount'=>'nullable'
         ]);
 
         $data=$request->all();

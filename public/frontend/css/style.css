@@ -2450,7 +2450,8 @@ Version:1.0
 }
 /* Size */
 .shop.single .product-des .size{
-	display:inline-block;
+	display: flex;
+	align-items: center;
 }
 .shop.single .product-des .size h4{
 	display: block;

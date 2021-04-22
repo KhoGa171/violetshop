@@ -45,6 +45,7 @@ class CartController extends Controller
             $cart->product_id = $product->id;
             $cart->price = ($product->price-($product->price*$product->discount)/100);
             $cart->quantity = 1;
+            $cart->size = $request->size;
             $cart->amount=$cart->price*$cart->quantity;
             if ($cart->product->stock < $cart->quantity || $cart->product->stock <= 0) return back()->with('error','Stock not sufficient!.');
             $cart->save();
@@ -89,6 +90,7 @@ class CartController extends Controller
             $cart->user_id = auth()->user()->id;
             $cart->product_id = $product->id;
             $cart->price = ($product->price-($product->price*$product->discount)/100);
+            $cart->size = $request->size;
             $cart->quantity = $request->quant[1];
             $cart->amount=($product->price * $request->quant[1]);
             if ($cart->product->stock < $cart->quantity || $cart->product->stock <= 0) return back()->with('error','Stock not sufficient!.');

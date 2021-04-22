@@ -156,11 +156,12 @@
                                             </a>
                                             <div class="button-head">
                                                 <div class="product-action">
-                                                    <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                    <!-- <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class="ti-eye"></i><span>Quick Shop</span></a> -->
                                                     <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" ><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                                 </div>
                                                 <div class="product-action-2">
-                                                    <a title="Add to cart" href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
+                                                    <!-- <a href="{{route('add-to-cart',$product->slug)}}">Add to cart</a> -->
+                                                    <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#">Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -210,7 +211,11 @@
                             <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
                             <div class="content">
                                 <p>{{$data->cat_info['title']}}</p>
-                                <h3>{{$data->title}} <br>Up to<span> {{$data->discount}}%</span></h3>
+                                <h3>{{$data->title}}
+                                @if($data->discount)
+                                    <br>Up to<span> {{$data->discount}}%</span>
+                                @endif
+                                </h3>
                                 <a href="{{route('product-detail',$data->slug)}}">Shop Now</a>
                             </div>
                         </div>
@@ -248,15 +253,16 @@
                                     @endphp
                                     <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                     <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                    {{-- <span class="out-of-stock">Hot</span> --}}
+                                    <span class="hot">Hot</span>
                                 </a>
                                 <div class="button-head">
                                     <div class="product-action">
-                                        <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                        <!-- <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class="ti-eye"></i><span>Quick Shop</span></a> -->
                                         <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" ><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                     </div>
                                     <div class="product-action-2">
-                                        <a href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
+                                        <!-- <a href="{{route('add-to-cart',$product->slug)}}">Add to cart</a> -->
+                                        <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#">Add to cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -486,26 +492,25 @@
                                         <div class="quickview-peragraph">
                                             <p>{!! html_entity_decode($product->summary) !!}</p>
                                         </div>
-                                        @if($product->size)
-                                            <div class="size">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-12">
-                                                        <h5 class="title">Size</h5>
-                                                        <select>
-                                                            @php 
-                                                            $sizes=explode(',',$product->size);
-                                                            // dd($sizes);
-                                                            @endphp
-                                                            @foreach($sizes as $size)
-                                                                <option>{{$size}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
                                         <form action="{{route('single-add-to-cart')}}" method="POST" class="mt-4">
                                             @csrf 
+                                            @if($product->size)
+													<div class="size">
+														<div class="row">
+															<div class="col-lg-6 col-12">
+																<h5 class="title">Size</h5>
+																<select class="selectpicker" data-live-search="true" name="size"  data-style="select-with-transition">
+																	@php 
+																	$sizes=explode(',',$product->size);
+																	@endphp
+																	@foreach($sizes as $size)
+																		<option>{{$size}}</option>
+																	@endforeach
+																</select>
+															</div>
+														</div>
+													</div>
+											@endif
                                             <div class="quantity">
                                                 <!-- Input Order -->
                                                 <div class="input-group">

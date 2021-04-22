@@ -45,13 +45,10 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'first_name'=>'string|required',
-            'last_name'=>'string|required',
-            'address1'=>'string|required',
-            'address2'=>'string|nullable',
+            'name'=>'string|required',
+            'address'=>'string|required',
             'coupon'=>'nullable|numeric',
             'phone'=>'numeric|required',
-            'post_code'=>'string|nullable',
             'email'=>'string|required'
         ]);
         // return $request->all();
@@ -96,6 +93,7 @@ class OrderController extends Controller
         $shipping=Shipping::where('id',$order_data['shipping_id'])->pluck('price');
         // return session('coupon')['value'];
         $order_data['sub_total']=Helper::totalCartPrice();
+        
         $order_data['quantity']=Helper::cartCount();
         if(session('coupon')){
             $order_data['coupon']=session('coupon')['value'];
