@@ -28,7 +28,7 @@ class Helper{
             ?>
             
             <li>
-            <a href="javascript:void(0);">Category<i class="ti-angle-down"></i></a>
+            <a href="javascript:void(0);">Thể loại<i class="ti-angle-down"></i></a>
                 <ul class="dropdown border-0 shadow">
                 <?php
                     foreach($menu as $cat_info){
@@ -152,7 +152,7 @@ class Helper{
         if($order){
             $shipping_price=(float)$order->shipping->price;
             $order_price=self::orderPrice($id,$user_id);
-            return number_format((float)($order_price+$shipping_price),2,'.','');
+            return number_format((float)($order_price+$shipping_price),'.','');
         }else{
             return 0;
         }
@@ -167,7 +167,7 @@ class Helper{
         foreach($month_data as $data){
             $price = $data->cart_info->sum('price');
         }
-        return number_format((float)($price),2,'.','');
+        return number_format((float)($price),'.','');
     }
 
     public static function shipping(){

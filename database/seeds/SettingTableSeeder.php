@@ -12,15 +12,13 @@ class SettingTableSeeder extends Seeder
     public function run()
     {
         $data=array(
-            'description'=>"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde omnis iste natus error sit voluptatem Excepteu
-
-                            sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspi deserunt mollit anim id est laborum. sed ut perspi.",
-            'short_des'=>"Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.",
-            'photo'=>"image.jpg",
-            'logo'=>'logo.jpg',
-            'address'=>"NO. 342 - London Oxford Street, 012 United Kingdom",
-            'email'=>"eshop@gmail.com",
-            'phone'=>"+060 (800) 801-582",
+            'description'=>"Shop Thời Trang Violet với phương châm là “ Sẽ luôn luôn là người bạn đồng hành cùng với phong cách thời trang của bạn”. Violet sẽ là một trong những shop đồ thời trang uy tín và chất lượng nhất tại Tp.Huế chúng tôi luôn mang đến cho khách hàng những sản phẩm mới nhất và chất lượng, giá thành hợp lý nhất tại cửa hàng Thời Trang Violet dưới đây là đối nét giới thiệu cơ bản về Shop Thời Trang Nam Cao Cấp Violet.",
+            'short_des'=>"Shop Thời Trang Violet với phương châm là “ Sẽ luôn luôn là người bạn đồng hành cùng với phong cách thời trang của bạn”. ",
+            'photo'=>"/storage/photos/1/logo.png",
+            'logo'=>'/storage/photos/1/logo.png',
+            'address'=>"68 Hùng Vương, Tp Huế",
+            'email'=>"violetshop@gmail.com",
+            'phone'=>"+0234 3868868",
         );
         DB::table('settings')->insert($data);
     }

@@ -932,7 +932,7 @@ Version:1.0
 	text-transform: uppercase;
 	font-size: 9px;
 	position: absolute;
-	left: 21px;
+	left: 70px;
 	top: 2px;
 	font-weight: 500;
 	height: 18px;
@@ -3245,6 +3245,7 @@ Version:1.0
 	background: #F6F7FB;
 	border-radius: 0px;
 	border:none;
+	font-size: small;
 }
 .shop.checkout .nice-select .list {
 	width: 100%;
@@ -3327,7 +3328,7 @@ Version:1.0
 }
 .shop.checkout .single-widget .content ul li.last {
 	padding-top: 12px;
-	border-top: 1px solid #ebebeb;
+	/* border-top: 1px solid #ebebeb; */
 	display: block;
 	font-size: 15px;
 	font-weight: 400;

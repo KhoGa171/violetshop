@@ -96,7 +96,7 @@
         <table class="table table-bordered" id="order-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
+              <th>STT</th>
               <th>Order No.</th>
               <th>Name</th>
               <th>Email</th>
@@ -108,7 +108,7 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
+              <th>STT</th>
               <th>Order No.</th>
               <th>Name</th>
               <th>Email</th>
@@ -122,12 +122,12 @@
             @if(count($orders)>0)
               @foreach($orders as $order)   
                 <tr>
-                    <td>{{$order->id}}</td>
+                    <td>{{$loop->iteration}}</td>
                     <td>{{$order->order_number}}</td>
-                    <td>{{$order->first_name}} {{$order->last_name}}</td>
+                    <td>{{$order->name}}</td>
                     <td>{{$order->email}}</td>
                     <td>{{$order->quantity}}</td>
-                    <td>${{number_format($order->total_amount,2)}}</td>
+                    <td>{{number_format($order->total_amount)}}đ</td>
                     <td>
                         @if($order->status=='new')
                           <span class="badge badge-primary">{{$order->status}}</span>

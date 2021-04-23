@@ -4,6 +4,60 @@
 
 @section('main-content')
 <div class="card">
+  <h5 class="card-header">Order
+    <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
+  </h5>
+</div>
+<h5 class="card-header">Order No.: {{$order->order_number}}</h5>
+<h5 class="card-header">Khách hàng: {{$order->name}}</h5>
+<h5 class="card-header">Email: {{$order->email}}</h5>
+<h5 class="card-header">Thành tiền: {{number_format($order->total_amount)}}đ</h5>
+<div class="row card-header">
+  <h5 class="col-3">
+    Trạng thái: @if($order->status=='new')
+    <span class="badge badge-primary">{{$order->status}}</span>
+    @elseif($order->status=='process')
+    <span class="badge badge-warning">{{$order->status}}</span>
+    @elseif($order->status=='delivered')
+    <span class="badge badge-success">{{$order->status}}</span>
+    @else
+    <span class="badge badge-danger">{{$order->status}}</span>
+    @endif
+  </h5>
+  <h5>Action: </h5>
+  <div class="col-8">
+    <form method="POST" action="{{route('order.destroy',[$order->id])}}">
+      @csrf
+      @method('delete')
+      <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+    </form>
+  </div>
+</div>
+<div class="card-body">
+  <table class="table table-striped table-hover">
+  <thead>
+      <tr>
+        <th>STT</th>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Size</th>
+        <th>Giá</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($order->cart as $item)
+      <tr>
+        <td>{{$loop->iteration}}</td>
+        <td>{{$item->product['title']}}</td>
+        <td>{{$item->quantity}}</td>
+        <td>{{$item->size}}</td>
+        <td>{{$item->product['price']}}</td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
+<!-- <div class="card">
 <h5 class="card-header">Order       <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
   </h5>
   <div class="card-body">
@@ -33,7 +87,7 @@
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
             <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
-            <td>${{number_format($order->total_amount,2)}}</td>
+            <td>{{number_format($order->total_amount)}}đ</td>
             <td>
                 @if($order->status=='new')
                   <span class="badge badge-primary">{{$order->status}}</span>
@@ -140,7 +194,7 @@
     @endif
 
   </div>
-</div>
+</div> -->
 @endsection
 
 @push('styles')

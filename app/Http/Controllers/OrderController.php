@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Shipping;
 use App\User;
 use PDF;
@@ -15,6 +16,15 @@ use App\Notifications\StatusNotification;
 
 class OrderController extends Controller
 {
+    protected Cart $cart;
+    protected Product $product;
+    protected Order $order;
+    public function __construct(Product $product, Cart $cart, Order $order)
+    {
+        $this->product = $product;
+        $this->cart = $cart;
+        $this->order = $order;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -157,9 +167,10 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order=Order::find($id);
-        // return $order;
-        return view('backend.order.show')->with('order',$order);
+        $order = $this->order->with(['cart', 'product'])->findOrFail($id);
+        // $order=Order::findOrFail($id);
+        // dd($order->toArray());
+        return view('backend.order.show', compact('order'));
     }
 
     /**
@@ -171,6 +182,7 @@ class OrderController extends Controller
     public function edit($id)
     {
         $order=Order::find($id);
+        
         return view('backend.order.edit')->with('order',$order);
     }
 

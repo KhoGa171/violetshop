@@ -11,8 +11,8 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="javascript:void(0)">Checkout</a></li>
+                            <li><a href="{{route('home')}}">Trang chủ<i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="javascript:void(0)">Thanh toán</a></li>
                         </ul>
                     </div>
                 </div>
@@ -30,14 +30,14 @@
 
                         <div class="col-lg-8 col-12">
                             <div class="checkout-form">
-                                <h2>Make Your Checkout Here</h2>
-                                <p>Please register in order to checkout more quickly</p>
+                                <h2>Thanh toán của bạn ở đây</h2>
+                                <p>Vui lòng điền thông tin để thanh toán nhanh hơn</p>
                                 <!-- Form -->
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Name<span>*</span></label>
-                                            <input type="text" name="name" placeholder="" value="{{old('name')}}" value="{{old('name')}}">
+                                            <label>Họ và tên<span>*</span></label>
+                                            <input type="text" name="name" placeholder="" required value="{{old('name')}}">
                                             @error('name')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
@@ -45,8 +45,8 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Email Address<span>*</span></label>
-                                            <input type="email" name="email" placeholder="" value="{{old('email')}}">
+                                            <label>Email<span>*</span></label>
+                                            <input type="email" name="email" placeholder="" required value="{{old('email')}}">
                                             @error('email')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Phone Number <span>*</span></label>
+                                            <label>Số điện thoại<span>*</span></label>
                                             <input type="number" name="phone" placeholder="" required value="{{old('phone')}}">
                                             @error('phone')
                                                 <span class='text-danger'>{{$message}}</span>
@@ -63,8 +63,8 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Address<span>*</span></label>
-                                            <input type="text" name="address" placeholder="" value="{{old('address')}}">
+                                            <label>Địa chỉ<span>*</span></label>
+                                            <input type="text" name="address" placeholder="" required value="{{old('address')}}">
                                             @error('address')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
@@ -78,26 +78,27 @@
                             <div class="order-details">
                                 <!-- Order Widget -->
                                 <div class="single-widget">
-                                    <h2>CART  TOTALS</h2>
+                                    <h2>THÀNH TIỀN</h2>
                                     <div class="content">
                                         <ul>
-										    <li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
+										    <li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Tổng giỏ hàng<span>{{number_format(Helper::totalCartPrice())}}đ</span></li>
                                             <li class="shipping">
-                                                Shipping Cost
+                                                Giá vận chuyển
                                                 @if(count(Helper::shipping())>0 && Helper::cartCount()>0)
-                                                    <select name="shipping" class="nice-select">
-                                                        <option value="">Select your address</option>
+                                                    <select name="shipping" class="nice-select selectpicker" data-live-search="true"  data-style="select-with-transition" required>
+                                                        <option>Chọn đơn vị vận chuyển</option>
                                                         @foreach(Helper::shipping() as $shipping)
-                                                        <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ${{$shipping->price}}</option>
+                                                        <option value="{{$shipping->id}}"  data-price="{{$shipping->price}}">{{$shipping->type}}: {{number_format($shipping->price)}}đ</option>
                                                         @endforeach
                                                     </select>
                                                 @else 
                                                     <span>Free</span>
+
                                                 @endif
                                             </li>
                                             
                                             @if(session('coupon'))
-                                            <li class="coupon_price" data-price="{{session('coupon')['value']}}">You Save<span>${{number_format(session('coupon')['value'],2)}}</span></li>
+                                            <li class="coupon_price" data-price="{{session('coupon')['value']}}">Bạn được giảm<span>{{number_format(session('coupon')['value'])}}đ</span></li>
                                             @endif
                                             @php
                                                 $total_amount=Helper::totalCartPrice();
@@ -106,9 +107,9 @@
                                                 }
                                             @endphp
                                             @if(session('coupon'))
-                                                <li class="last"  id="order_total_price">Total<span>${{number_format($total_amount,2)}}</span></li>
+                                                <li class="last"  id="order_total_price">Tổng tiền<span>{{number_format($total_amount)}}đ</span></li>
                                             @else
-                                                <li class="last"  id="order_total_price">Total<span>${{number_format($total_amount,2)}}</span></li>
+                                                <li class="last"  id="order_total_price">Tổng tiền<span>{{number_format($total_amount)}}đ</span></li>
                                             @endif
                                         </ul>
                                     </div>
@@ -116,13 +117,12 @@
                                 <!--/ End Order Widget -->
                                 <!-- Order Widget -->
                                 <div class="single-widget">
-                                    <h2>Payments</h2>
+                                    <h2>THANH TOÁN</h2>
                                     <div class="content">
                                         <div class="checkbox">
-                                            {{-- <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Check Payments</label> --}}
                                             <form-group>
-                                                <input name="payment_method"  type="radio" value="cod"> <label> Cash On Delivery</label><br>
-                                                <input name="payment_method"  type="radio" value="paypal"> <label> PayPal</label> 
+                                                <input name="payment_method"  type="radio" value="cod" require> <label>Thanh toán khi giao hàng</label><br>
+                                                <input name="payment_method"  type="radio" value="paypal" require> <label>Thanh toán trực tuyến</label> 
                                             </form-group>
                                             
                                         </div>
@@ -140,7 +140,7 @@
                                 <div class="single-widget get-button">
                                     <div class="content">
                                         <div class="button">
-                                            <button type="submit" class="btn">proceed to checkout</button>
+                                            <button type="submit" class="btn">ĐẶT HÀNG</button>
                                         </div>
                                     </div>
                                 </div>
@@ -161,8 +161,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="ti-rocket"></i>
-                        <h4>Free shiping</h4>
-                        <p>Orders over $100</p>
+                        <h4>MIỄN PHÍ VẬN CHUYỂN</h4>
+                        <p>Đơn hàng trên 1.000.000đ</p>
                     </div>
                     <!-- End Single Service -->
                 </div>
@@ -170,8 +170,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="ti-reload"></i>
-                        <h4>Free Return</h4>
-                        <p>Within 30 days returns</p>
+                        <h4>ĐỔI TRẢ MIỄN PHÍ</h4>
+                        <p>Trong vòng 7 ngày trở lại</p>
                     </div>
                     <!-- End Single Service -->
                 </div>
@@ -179,8 +179,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="ti-lock"></i>
-                        <h4>Sucure Payment</h4>
-                        <p>100% secure payment</p>
+                        <h4>THANH TOÁN CHẮC CHẮN</h4>
+                        <p>Thanh toán an toàn 100%</p>
                     </div>
                     <!-- End Single Service -->
                 </div>
@@ -188,8 +188,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="ti-tag"></i>
-                        <h4>Best Peice</h4>
-                        <p>Guaranteed price</p>
+                        <h4>Giá tốt nhất</h4>
+                        <p>Giá đảm bảo</p>
                     </div>
                     <!-- End Single Service -->
                 </div>
@@ -206,11 +206,11 @@
                     <div class="col-lg-8 offset-lg-2 col-12">
                         <!-- Start Newsletter Inner -->
                         <div class="inner">
-                            <h4>Newsletter</h4>
-                            <p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
+                            <h4>Bản tin</h4>
+                            <p> Đăng ký bản tin của chúng tôi và được giảm giá <span>10%</span> khi mua hàng đầu tiên của bạn</p>
                             <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                                <input name="EMAIL" placeholder="Your email address" required="" type="email">
-                                <button class="btn">Subscribe</button>
+                                <input name="EMAIL" placeholder="Địa chỉ email của bạn" required="" type="email">
+                                <button class="btn">Đăng ký</button>
                             </form>
                         </div>
                         <!-- End Newsletter Inner -->
@@ -292,7 +292,7 @@
 				let subtotal = parseFloat( $('.order_subtotal').data('price') ); 
 				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0; 
 				// alert(coupon);
-				$('#order_total_price span').text('$'+(subtotal + cost-coupon).toFixed(2));
+				$('#order_total_price span').text((subtotal + cost-coupon)+'đ');
 			});
 
 		});
